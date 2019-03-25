@@ -79,9 +79,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </p>
                 </router-link>
               </li>
+          @can('isAdmin')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cogs orange"></i>
+              <i class="nav-icon fas fa-cog orange"></i>
               <p>
                 Managment
                 <i class="right fa fa-angle-left"></i>
@@ -96,6 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endcan
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user-circle green"></i>
@@ -104,6 +106,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
+          @can('isAdmin')
+          <li class="nav-item">
+            <router-link to="/developer" class="nav-link">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>
+                Developer
+              </p>
+            </router-link>
+          </li>
+          @endcan
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -136,7 +148,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content">
       <div class="container-fluid">
         <div class="row">
+            <!-- for example router view -->
             <router-view></router-view>
+            <!-- set progressbar -->
+            <vue-progress-bar></vue-progress-bar>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -156,7 +171,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </footer>
 </div>
 <!-- ./wrapper -->
-
+@auth
+<script>
+    window.user = @json(auth()->user())  
+</script>  
+@endauth
 <!-- REQUIRED SCRIPTS -->
 <script src="/js/app.js"></script>
 </body>
